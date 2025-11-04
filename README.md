@@ -1,4 +1,4 @@
-<img width="1919" height="1004" alt="image" src="https://github.com/user-attachments/assets/7c53eb0f-39f7-4bcb-aa8b-1e7fe27bcf29" /># 🎬 MovieMagic - Movie Recommendation System
+ 🎬 MovieMagic - Movie Recommendation System
 
 A fully responsive and visually stunning movie recommendation web application built with React, Flask, and machine learning.
 
@@ -216,4 +216,5 @@ For questions or support, please open an issue on GitHub.
 ---
 
 Made with ❤️ using React, Flask, and Machine Learning
+
 
