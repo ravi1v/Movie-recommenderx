@@ -79,12 +79,38 @@ const Dashboard = () => {
     }
   };
 
-  const handleFavoriteChange = (movieId, isFavorite) => {
-    if (isFavorite) {
-      const movie = [...trending, ...recommendations, ...searchResults].find(m => m.movieId === movieId);
-      if (movie) setFavorites([...favorites, movie]);
-    } else {
-      setFavorites(favorites.filter(m => m.movieId !== movieId));
+  const handleFavoriteChange = async (movieId, isFavorite) => {
+    try {
+      if (isFavorite) {
+        // Add to favorites via API
+        await userAPI.addFavorite(movieId);
+        const movie = [...trending, ...recommendations, ...searchResults, ...genreMovies].find(m => m.movieId === movieId);
+        if (movie) {
+          const updatedFavorites = [...favorites, movie];
+          setFavorites(updatedFavorites);
+          // Refresh recommendations based on updated favorites
+          const recRes = await moviesAPI.recommend(undefined, 20);
+          setRecommendations(recRes.data.movies);
+        } else {
+          // If movie not found in current lists, fetch favorites from server
+          const favRes = await userAPI.getFavorites();
+          const updatedFavorites = favRes.data.movies || [];
+          setFavorites(updatedFavorites);
+          // Refresh recommendations
+          const recRes = await moviesAPI.recommend(undefined, 20);
+          setRecommendations(recRes.data.movies);
+        }
+      } else {
+        // Remove from favorites via API
+        await userAPI.removeFavorite(movieId);
+        const updatedFavorites = favorites.filter(m => m.movieId !== movieId);
+        setFavorites(updatedFavorites);
+        // Refresh recommendations based on updated favorites
+        const recRes = await moviesAPI.recommend(undefined, 20);
+        setRecommendations(recRes.data.movies);
+      }
+    } catch (error) {
+      console.error('Error updating favorite:', error);
     }
   };
 
