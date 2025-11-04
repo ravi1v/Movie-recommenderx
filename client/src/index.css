@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  body {
+    @apply bg-cinema-dark text-white font-sans;
+    font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-black/30 backdrop-blur-md border border-white/10;
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
+                0 0 20px rgba(139, 92, 246, 0.3),
+                0 0 30px rgba(139, 92, 246, 0.2);
+  }
+  
+  .movie-card-gradient {
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  }
+}
+
