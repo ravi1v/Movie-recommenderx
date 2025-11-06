@@ -203,8 +203,7 @@ MovieLens 32M
 
 MovieLens 32M movie ratings. Stable benchmark dataset. 32 million ratings and two million tag applications applied to 87,585 movies by 200,948 users. Collected 10/2023 Released 05/2024
 
-    README.txt
-    ml-32m.zip (size: 239 MB, checksum)
+ 
 
 ## 📝 License
 
@@ -228,4 +227,5 @@ Made with ❤️ using React, Flask, and Machine Learning
 
 
 # Movie-recommenderx
+
 
