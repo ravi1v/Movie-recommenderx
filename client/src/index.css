@@ -17,6 +17,18 @@
   html {
     @apply scroll-smooth;
   }
+  
+  /* Prevent layout shifts during image loading */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Smooth scrolling performance */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 @layer utilities {

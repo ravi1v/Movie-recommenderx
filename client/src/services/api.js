@@ -28,30 +28,34 @@ export const authAPI = {
 
 // Movies API
 export const moviesAPI = {
-  search: (query, limit = 10) => 
-    api.get('/search', { params: { q: query, limit } }),
-  getMovie: (movieId) => 
+  search: (query, limit = 10, language = null) =>
+    api.get('/search', { params: { q: query, limit, language: language || undefined } }),
+  getMovie: (movieId) =>
     api.get(`/movie/${movieId}`),
-  recommend: (movieId = null, limit = 20) => 
-    api.get('/recommend', { params: { movie_id: movieId, limit } }),
-  trending: (limit = 20) => 
-    api.get('/trending', { params: { limit } }),
-  getGenres: () => 
+  recommend: (movieId = null, limit = 20, language = null) =>
+    api.get('/recommend', { params: { movie_id: movieId, limit, language: language || undefined } }),
+  trending: (limit = 20, language = null) =>
+    api.get('/trending', { params: { limit, language: language || undefined } }),
+  getGenres: () =>
     api.get('/genres'),
-  getMoviesByGenre: (genre, limit = 20) => 
-    api.get('/movies/genre', { params: { genre, limit } }),
+  getMoviesByGenre: (genre, limit = 20, language = null) =>
+    api.get('/movies/genre', { params: { genre, limit, language: language || undefined } }),
 };
 
 // User API
 export const userAPI = {
-  getFavorites: () => 
+  getFavorites: () =>
     api.get('/user/favorites'),
-  addFavorite: (movieId) => 
+  addFavorite: (movieId) =>
     api.post('/user/favorites', { movie_id: movieId }),
-  removeFavorite: (movieId) => 
+  removeFavorite: (movieId) =>
     api.delete(`/user/favorites/${movieId}`),
-  getHistory: () => 
+  getHistory: () =>
     api.get('/user/history'),
+  rateMovie: (movieId, rating) =>
+    api.post('/user/rate', { movie_id: movieId, rating }),
+  getUserRating: (movieId) =>
+    api.get(`/user/rating/${movieId}`),
 };
 
 export default api;

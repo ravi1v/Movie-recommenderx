@@ -8,13 +8,40 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
+  // Email validation regex pattern
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    
+    // Validate email on change
+    if (value && !validateEmail(value)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setEmailError('');
+    
+    // Validate email before submit
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+    
     setLoading(true);
 
     const result = await register(email, password, name);
@@ -74,11 +101,25 @@ const SignupPage = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                onChange={handleEmailChange}
+                className={`w-full px-4 py-3 bg-black/50 border rounded-lg focus:outline-none transition-colors ${
+                  emailError ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-purple-500'
+                }`}
                 placeholder="your@email.com"
                 required
               />
+              <AnimatePresence>
+                {emailError && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="mt-1 text-sm text-red-400"
+                  >
+                    {emailError}
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             <motion.div
