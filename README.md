@@ -1,4 +1,4 @@
- 🎬 MovieMagic - Movie Recommendation System
+ ## 🎬 Panchax TV - Movie Recommendation System
 
 A fully responsive and visually stunning movie recommendation web application built with React, Flask, and machine learning.
 
@@ -220,6 +220,8 @@ For questions or support, please open an issue on GitHub.
 ---
 
 Made with ❤️ using React, Flask, and Machine Learning
+
+
 
 
 
