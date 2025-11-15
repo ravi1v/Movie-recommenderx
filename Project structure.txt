@@ -1,0 +1,33 @@
+movie-recommendation-system/
+│
+├── backend/                        # Flask backend + ML models
+│   ├── app.py                     # Flask application entry point (API endpoints)
+│   ├── model/                     # ML model files, pickles, training notebooks
+│   │   ├── recommendation_model.pkl
+│   │   └── model_training.ipynb
+│   ├── data/                      # Dataset files (csv, json)
+│   ├── utils/                     # Utility Python scripts (helpers)
+│   ├── requirements.txt           # Backend Python dependencies
+│   └── README.md
+│
+├── frontend/                      # React frontend
+│   ├── public/                   # static files (index.html, favicon)
+│   ├── src/
+│   │   ├── assets/               # images, icons, fonts
+│   │   ├── components/           # React UI components
+│   │   │   ├── MainPage.js
+│   │   │   ├── LoginPage.js
+│   │   │   ├── SignupPage.js
+│   │   │   └── RecommendationPage.js
+│   │   ├── hooks/                # Custom React hooks
+│   │   ├── services/             # API call helpers
+│   │   ├── styles/               # CSS modules or stylesheets
+│   │   ├── App.js                # Main React App with routing
+│   │   ├── index.js              # React entry point
+│   │   └── setupProxy.js         # For development proxy to Flask backend
+│   ├── package.json
+│   └── README.md
+│
+├── .gitignore
+├── README.md
+└── Dockerfile / docker-compose.yml (optional for deployment)
