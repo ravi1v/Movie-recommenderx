@@ -84,13 +84,13 @@ const LandingPage = () => {
             className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent"
             variants={itemVariants}
           >
-            MovieMagic
+            Panchax TV
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Discover Your Next Favorite Film with AI-Powered Recommendations
+            A personalized Movie recommmender system that suggests movies based on your unique preferences and viewing history.     
           </motion.p>
           <motion.button
             className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all duration-300 neon-glow transform hover:scale-105"
