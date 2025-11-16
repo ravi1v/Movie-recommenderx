@@ -96,7 +96,8 @@ const Dashboard = () => {
 
     try {
       setSearchLoading(true);
-      const searchResponse = await moviesAPI.search(query.trim(), 20, selectedLanguage || null);
+      const searchResponse = await moviesAPI.search(query.trim(), 20, selectedLanguageclient/src/components/LandingPage.js
+ || null);
       const searchMovies = searchResponse.data.movies || [];
 
       if (searchMovies.length > 0) {
@@ -221,7 +222,7 @@ const Dashboard = () => {
             className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
-            Panchax TV
+            Movie-RecommenderX
           </motion.h1>
 
           {/* Search Bar */}
