@@ -82,7 +82,6 @@ const Dashboard = () => {
       return;
     }
 
-    // Only search if query is at least 2 characters
     if (query.trim().length < 2) {
       return;
     }
@@ -96,19 +95,25 @@ const Dashboard = () => {
 
     try {
       setSearchLoading(true);
-      const searchResponse = await moviesAPI.search(query.trim(), 20, selectedLanguageclient/src/components/LandingPage.js
- || null);
+
+      // ✅ FIXED BROKEN LINE HERE
+      const searchResponse = await moviesAPI.search(
+        query.trim(),
+        20,
+        selectedLanguage || null
+      );
+
       const searchMovies = searchResponse.data.movies || [];
 
       if (searchMovies.length > 0) {
         const firstMovie = searchMovies[0];
-        const recResponse = await moviesAPI.recommend(firstMovie.movieId, 19, selectedLanguage || null); // Get 19 recommendations
+        const recResponse = await moviesAPI.recommend(firstMovie.movieId, 19, selectedLanguage || null);
         const recommendations = recResponse.data.movies || [];
 
-        // Combine: all search results first, then recommendations (avoid duplicates)
         const searchIds = new Set(searchMovies.map(m => m.movieId));
         const filteredRecommendations = recommendations.filter(m => !searchIds.has(m.movieId));
         const combined = [...searchMovies, ...filteredRecommendations];
+
         setSearchResults(combined);
         setApiCache(prev => new Map(prev).set(cacheKey, combined));
       } else {
@@ -150,34 +155,30 @@ const Dashboard = () => {
     }
   }, [selectedGenre, selectedLanguage]);
 
-
   const handleFavoriteChange = async (movieId, isFavorite) => {
     try {
       if (isFavorite) {
-        // Add to favorites via API
         await userAPI.addFavorite(movieId);
         const movie = [...trending, ...recommendations, ...searchResults, ...genreMovies].find(m => m.movieId === movieId);
         if (movie) {
           const updatedFavorites = [...favorites, movie];
           setFavorites(updatedFavorites);
-          // Refresh recommendations based on updated favorites
+
           const recRes = await moviesAPI.recommend(undefined, 20);
           setRecommendations(recRes.data.movies);
         } else {
-          // If movie not found in current lists, fetch favorites from server
           const favRes = await userAPI.getFavorites();
           const updatedFavorites = favRes.data.movies || [];
           setFavorites(updatedFavorites);
-          // Refresh recommendations
+
           const recRes = await moviesAPI.recommend(undefined, 20);
           setRecommendations(recRes.data.movies);
         }
       } else {
-        // Remove from favorites via API
         await userAPI.removeFavorite(movieId);
         const updatedFavorites = favorites.filter(m => m.movieId !== movieId);
         setFavorites(updatedFavorites);
-        // Refresh recommendations based on updated favorites
+
         const recRes = await moviesAPI.recommend(undefined, 20);
         setRecommendations(recRes.data.movies);
       }
@@ -188,20 +189,13 @@ const Dashboard = () => {
 
   const getMoviesToDisplay = useMemo(() => {
     switch (activeTab) {
-      case 'trending':
-        return trending;
-      case 'recommended':
-        return recommendations;
-      case 'favorites':
-        return favorites;
-      case 'history':
-        return recentlyWatched;
-      case 'search':
-        return searchResults;
-      case 'genre':
-        return genreMovies;
-      default:
-        return trending;
+      case 'trending': return trending;
+      case 'recommended': return recommendations;
+      case 'favorites': return favorites;
+      case 'history': return recentlyWatched;
+      case 'search': return searchResults;
+      case 'genre': return genreMovies;
+      default: return trending;
     }
   }, [activeTab, trending, recommendations, favorites, recentlyWatched, searchResults, genreMovies]);
 
@@ -335,7 +329,7 @@ const Dashboard = () => {
           ))}
         </div>
 
-        {/* Movies Grid - Optimized for stable layout */}
+        {/* Movies Grid */}
         <div
           key={activeTab}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"
