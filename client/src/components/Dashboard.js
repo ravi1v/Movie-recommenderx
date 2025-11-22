@@ -216,7 +216,7 @@ const Dashboard = () => {
             className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
-            Movie-RecommenderX
+            Panchax TV
           </motion.h1>
 
           {/* Search Bar */}
